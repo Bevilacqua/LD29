@@ -2,15 +2,37 @@
 using System.Collections;
 
 public class TerrainGenerator : MonoBehaviour {
-	public GameObject terrain;
+	public GameObject upperLevelDirt;
+	public GameObject midLevelRock;
+	public GameObject lowLevelRock;
+
 	// Use this for initialization
 	void Start () {
 		for(int x = -10 ; x < 10 ; x++) { //Testing please redo this for the love of god
 			for(int y = -5 ; y < 10 ; y++) {
-				Instantiate(terrain , new Vector2(x + 0.5f + (0.5f * terrain.transform.lossyScale.x) , y  + (0.5f * terrain.transform.lossyScale.y)) , gameObject.transform.rotation);
-				Instantiate(terrain , new Vector2(x + (0.5f * terrain.transform.lossyScale.x) , y  + 0.5f + (0.5f * terrain.transform.lossyScale.y)) , gameObject.transform.rotation);
-				Instantiate(terrain , new Vector2(x + 0.5f + (0.5f * terrain.transform.lossyScale.x) , y  + 0.5f + (0.5f * terrain.transform.lossyScale.y)) , gameObject.transform.rotation);
-				Instantiate(terrain , new Vector2(x + 0.5f * terrain.transform.lossyScale.x, y  + 0.5f * terrain.transform.lossyScale.y) , gameObject.transform.rotation);
+				if(y < 0) {
+					Instantiate(lowLevelRock , new Vector2(x + 0.5f + (0.5f * lowLevelRock.transform.lossyScale.x) , y  + (0.5f * lowLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+					Instantiate(lowLevelRock , new Vector2(x + (0.5f * lowLevelRock.transform.lossyScale.x) , y  + 0.5f + (0.5f * lowLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+					Instantiate(lowLevelRock , new Vector2(x + 0.5f + (0.5f * lowLevelRock.transform.lossyScale.x) , y  + 0.5f + (0.5f * lowLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+					Instantiate(lowLevelRock , new Vector2(x + 0.5f * lowLevelRock.transform.lossyScale.x, y  + 0.5f * lowLevelRock.transform.lossyScale.y) , gameObject.transform.rotation);
+				} else if(y < 7) {
+					if(y == 6) {
+						Instantiate((Random.Range(1 , 5) % 2 == 0 ? midLevelRock : upperLevelDirt) , new Vector2(x + 0.5f + (0.5f * midLevelRock.transform.lossyScale.x) , y  + (0.5f * midLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+						Instantiate(Random.Range(1 , 5) % 2 == 0 ? midLevelRock : upperLevelDirt) , new Vector2(x + (0.5f * midLevelRock.transform.lossyScale.x) , y  + 0.5f + (0.5f * midLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+						Instantiate(Random.Range(1 , 5) % 2 == 0 ? midLevelRock : upperLevelDirt) , new Vector2(x + 0.5f + (0.5f * midLevelRock.transform.lossyScale.x) , y  + 0.5f + (0.5f * midLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+						Instantiate(Random.Range(1 , 5) % 2 == 0 ? midLevelRock : upperLevelDirt) , new Vector2(x + 0.5f * midLevelRock.transform.lossyScale.x, y  + 0.5f * midLevelRock.transform.lossyScale.y) , gameObject.transform.rotation);
+					} else {
+						Instantiate(midLevelRock , new Vector2(x + 0.5f + (0.5f * midLevelRock.transform.lossyScale.x) , y  + (0.5f * midLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+						Instantiate(midLevelRock , new Vector2(x + (0.5f * midLevelRock.transform.lossyScale.x) , y  + 0.5f + (0.5f * midLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+						Instantiate(midLevelRock , new Vector2(x + 0.5f + (0.5f * midLevelRock.transform.lossyScale.x) , y  + 0.5f + (0.5f * midLevelRock.transform.lossyScale.y)) , gameObject.transform.rotation);
+						Instantiate(midLevelRock , new Vector2(x + 0.5f * midLevelRock.transform.lossyScale.x, y  + 0.5f * midLevelRock.transform.lossyScale.y) , gameObject.transform.rotation);
+					}
+				} else {
+					Instantiate(upperLevelDirt , new Vector2(x + 0.5f + (0.5f * upperLevelDirt.transform.lossyScale.x) , y  + (0.5f * upperLevelDirt.transform.lossyScale.y)) , gameObject.transform.rotation);
+					Instantiate(upperLevelDirt , new Vector2(x + (0.5f * upperLevelDirt.transform.lossyScale.x) , y  + 0.5f + (0.5f * upperLevelDirt.transform.lossyScale.y)) , gameObject.transform.rotation);
+					Instantiate(upperLevelDirt , new Vector2(x + 0.5f + (0.5f * upperLevelDirt.transform.lossyScale.x) , y  + 0.5f + (0.5f * upperLevelDirt.transform.lossyScale.y)) , gameObject.transform.rotation);
+					Instantiate(upperLevelDirt , new Vector2(x + 0.5f * upperLevelDirt.transform.lossyScale.x, y  + 0.5f * upperLevelDirt.transform.lossyScale.y) , gameObject.transform.rotation);
+				}
 			}
 		}
 	}
