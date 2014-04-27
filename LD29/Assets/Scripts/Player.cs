@@ -14,6 +14,15 @@ public class Player : MonoBehaviour {
 	void Update () {
 		camera.transform.position = new Vector3(transform.position.x , transform.position.y , camera.transform.position.z);
 
+		RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) , Vector2.zero);
+
+		if(Input.GetMouseButtonDown(0)) {
+			if(hit.collider != null) {
+				if(hit.collider.gameObject.tag == ("Stone")) {
+					Destroy(hit.collider.gameObject); //TODO: this should reduce hit points of rock and have some visual effect a few hits should destroy it.
+				}
+			}
+		}
 
 	}
 
