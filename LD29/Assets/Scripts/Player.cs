@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 	//Jewls:
 	public GameObject diamond; //100
 	public GameObject redGem; //10
+	public GameObject emerald; //55
 
 //	[HideInInspector]
 	public bool onLadder;
@@ -40,18 +41,24 @@ public class Player : MonoBehaviour {
 								else if(Random.Range(0,5) == 3) 
 									Instantiate(redGem , hit.collider.gameObject.transform.position , transform.rotation);
 
+								if(transform.position.x < -2)
+									if(Random.Range(0,100) % 3 == 0)
+										Instantiate(emerald , hit.collider.gameObject.transform.position , transform.rotation);
+
+								
 							} else if(transform.position.x < 7) { //Medium
 
 								if(Random.Range(0,50) == 15)
 									Instantiate(diamond , hit.collider.gameObject.transform.position , transform.rotation);
 								else if(Random.Range(0,5) == 3) 
 									Instantiate(redGem , hit.collider.gameObject.transform.position , transform.rotation);
-								
+								else if(Random.Range(0,100) % 3 == 0)
+									Instantiate(emerald , hit.collider.gameObject.transform.position , transform.rotation);
 
 							} else { //Worst
 
 								if(Random.Range(0 , 100) == 15) 
-									Instantiate(diamond , hit.collider.gameObject.transform.position , transform.rotation);
+									Instantiate(emerald , hit.collider.gameObject.transform.position , transform.rotation);
 								else if(Random.Range(0,100) % 2 == 0)
 									Instantiate(redGem , hit.collider.gameObject.transform.position , transform.rotation);
 							}
