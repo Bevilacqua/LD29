@@ -5,7 +5,7 @@ public class Ladder : MonoBehaviour {
 	private GameObject player;
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.Find("Player");
 	}
 	
 	// Update is called once per frame
