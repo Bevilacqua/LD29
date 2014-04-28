@@ -19,5 +19,10 @@ public class Jewl : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
+		if(collision.gameObject.tag == "Drill") {
+			GameObject.Find("Player").GetComponent<Player>().money += value;
+			Destroy(gameObject);
+		}
+
 	}
 }

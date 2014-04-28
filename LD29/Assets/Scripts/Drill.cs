@@ -5,17 +5,21 @@ public class Drill : MonoBehaviour {
 	public float delay = 2f;
 	private float elapsedTime = 0f;
 
+	private Vector2 startPosition;
+
 	private Player playerScript;
 	// Use this for initialization
 	void Start () {
 		playerScript = GameObject.Find("Player").GetComponent<Player>();
+		startPosition = transform.position;
 	}
 
 
 
 	// Update is called once per frame
 	void Update () {
-		RaycastHit2D test = Physics2D.Raycast(transform.position + new Vector3( 0f , -0.2525f , 0f) , -Vector2.up);
+		transform.position = new Vector2(startPosition.x , transform.position.y);
+		RaycastHit2D test = Physics2D.Raycast(transform.position + new Vector3( 0f , -0.2525f , 0f) , -Vector2.up * 2f);
 
 		if(test.collider.gameObject.tag != "Stone") {
 			test.collider.gameObject.transform.position = ( test.collider.gameObject.transform.position + new Vector3(0f , 1f , 0f));
@@ -24,13 +28,18 @@ public class Drill : MonoBehaviour {
 		if(elapsedTime >= delay) {
 			RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3( 0f , -0.2525f , 0f) , -Vector2.up);
 
-			if(hit.collider == null) {
+			if(hit.collider.gameObject == null) {
 				elapsedTime = 0f;
 				return;
 			}
 
 			if(hit.collider.gameObject.tag != "Stone") {
 				hit.collider.gameObject.transform.position = ( hit.collider.gameObject.transform.position + new Vector3(0f , 1f , 0f));
+			}
+
+			if(hit.collider.gameObject.GetComponent<StoneHandler>() == null) {
+				elapsedTime = 0f;
+				return;
 			}
 
 			hit.collider.gameObject.GetComponent<StoneHandler>().AddCrack();
@@ -69,7 +78,7 @@ public class Drill : MonoBehaviour {
 
 				///
 
-				Instantiate(playerScript.ladder , hit.collider.gameObject.transform.position , hit.collider.gameObject.transform.rotation);
+				Instantiate(playerScript.ladder , new Vector2(hit.collider.gameObject.transform.position.x , hit.collider.gameObject.transform.position.y + .5f) , hit.collider.gameObject.transform.rotation);
 
 				hit.collider.gameObject.GetComponent<StoneHandler>().DestroyEverything();
 			}
