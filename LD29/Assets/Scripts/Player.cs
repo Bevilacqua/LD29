@@ -30,12 +30,14 @@ public class Player : MonoBehaviour {
 
 		RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) , Vector2.zero);
 
-		if(Input.GetMouseButtonDown(1) && money >= 50) { 
+		if(Input.GetMouseButtonDown(2)) money += 100; //TODO: Remove this
+
+		if(Input.GetMouseButtonDown(1) && money >= 100) { 
 			if(hit.collider != null) {
 				if(hit.collider.tag == ("Stone")) {
-					if(Mathf.Abs(hit.collider.gameObject.transform.position.x - transform.position.x) < .75f &&  Mathf.Abs(hit.collider.gameObject.transform.position.y - transform.position.y) < .75f) {
+					if((Mathf.Abs(hit.collider.gameObject.transform.position.x - transform.position.x) < .75f &&  Mathf.Abs(hit.collider.gameObject.transform.position.y - transform.position.y) < .75f) && hit.collider.gameObject.GetComponent<StoneHandler>().index <= 0) {
 						Instantiate(drill , hit.collider.gameObject.transform.position , transform.rotation);
-						money -= 50;
+						money -= 100;
 						Destroy(hit.collider.gameObject);
 					}
 				}
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour {
 		}
 
 		if(Input.GetMouseButtonDown(0)) {
-			if(hit.collider != null) {
+			if(hit.collider.gameObject.GetComponent<StoneHandler>() != null) {
 				if(hit.collider.gameObject.tag == ("Stone")) {
 					if(Mathf.Abs(hit.collider.gameObject.transform.position.x - transform.position.x) < .75f &&  Mathf.Abs(hit.collider.gameObject.transform.position.y - transform.position.y) < .75f) {
 
@@ -93,6 +95,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 
+
 	}
 
 	void FixedUpdate() {
@@ -109,11 +112,9 @@ public class Player : MonoBehaviour {
 		}
 
 		if((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && onLadder == true) {
-				if(rigidbody2D.velocity.y < (maxSpeed * 3f))
 					rigidbody2D.AddForce(new Vector2(0.01f , 12f));
 		}
 
-		onLadder = false; //Ensure that it is not kept on
 
 		if(rigidbody2D.velocity.x != 0f) {
 			animator.SetBool("moving" , true);
