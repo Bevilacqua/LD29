@@ -5,9 +5,10 @@ public class Player : MonoBehaviour {
 	public int maxSpeed = 5;
 
 	public GameObject ladder;
+	public GameObject drill;
 
 	private Animator animator;
-
+	
 	//Jewls:
 	public GameObject diamond; //100
 	public GameObject redGem; //10
@@ -24,9 +25,22 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update () {
+		GameObject.Find("Money").GetComponent<GUIText>().text = "$ " + money;
 		Camera.main.transform.position = new Vector3(transform.position.x , transform.position.y , Camera.main.transform.position.z);
 
 		RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) , Vector2.zero);
+
+		if(Input.GetMouseButtonDown(1) && money >= 50) { 
+			if(hit.collider != null) {
+				if(hit.collider.tag == ("Stone")) {
+					if(Mathf.Abs(hit.collider.gameObject.transform.position.x - transform.position.x) < .75f &&  Mathf.Abs(hit.collider.gameObject.transform.position.y - transform.position.y) < .75f) {
+						Instantiate(drill , hit.collider.gameObject.transform.position , transform.rotation);
+						money -= 50;
+						Destroy(hit.collider.gameObject);
+					}
+				}
+			}
+		}
 
 		if(Input.GetMouseButtonDown(0)) {
 			if(hit.collider != null) {

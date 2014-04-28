@@ -31,10 +31,8 @@ public class StoneHandler : MonoBehaviour {
 
 		if(index == 0) {
 			localCrack = Instantiate(Crack , gameObject.transform.position , gameObject.transform.rotation) as GameObject;
-			localCrack.GetComponent<SpriteRenderer>().sprite = smallCrack;
-		} else if(index == 1) {
 			localCrack.GetComponent<SpriteRenderer>().sprite = medCrack;
-		} else if(index == 2) {
+		} else if(index == 1) {
 			localCrack.GetComponent<SpriteRenderer>().sprite = largeCrack;
 		} else {
 			readyToBeDestroyed = true;
